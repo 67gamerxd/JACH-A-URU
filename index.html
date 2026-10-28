@@ -73,11 +73,11 @@
 <script>
     const TIEMPO_PROMEDIO_MINUTOS = 10;
     const USUARIOS_AUTORIZADOS = {
-const personalEscuela = [
-    { cargo: "profesor", nombre: "profesor_guapo" },
-   "Mamani": "Maestra Mamani",
-    { cargo: "regenta", nombre: "estricta" }
-];
+const usuariosPermitidos = {
+        "1234": "Administrador General",
+        "Mamani": "Maestra Mamani",
+        "profesor_guapo": "Profesor",
+        "estricta": "Regenta"
     };
 
     let cola = JSON.parse(localStorage.getItem('cola_JachaUru')) || [];
