@@ -73,9 +73,11 @@
 <script>
     const TIEMPO_PROMEDIO_MINUTOS = 10;
     const USUARIOS_AUTORIZADOS = {
-        "profesor": "profesor_guapo",
-        "sprosesora": "linda",
-        "regenta": "estricta"
+const personalEscuela = [
+    { cargo: "profesor", nombre: "profesor_guapo" },
+    { cargo: "profesora", nombre: "linda" },
+    { cargo: "regenta", nombre: "estricta" }
+];
     };
 
     let cola = JSON.parse(localStorage.getItem('cola_JachaUru')) || [];
@@ -83,7 +85,7 @@
     let ultimoTurnoAtendido = localStorage.getItem('ultimoTurnoAtendido_JachaUru') || "A-001";
     let nombreUltimoAtendido = localStorage.getItem('nombreUltimoAtendido_JachaUru') || "Sin fila";
 
-    document.getElementById('turnDisplay').innerText = ultimoTurnoAtendido;
+    document.get0ElementById('turnDisplay').innerText = ultimoTurnoAtendido;
     document.getElementById('currentName').innerText = nombreUltimoAtendido;
 
     document.getElementById('authForm').addEventListener('submit', function(e){
