@@ -1,199 +1,185 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JACH'A URU - Control de filas</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        
-        body { 
-            background-color: #184281; 
-            color: #bead14; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            padding: 20px; 
-            min-height: 100vh; 
-            background-image: url('fondo.jpg');
-            background-size: cover; 
-            background-position: center; 
-            background-repeat: no-repeat;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JACH'A URU - Control de filas</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: #184281; color: #bead14; display: flex; justify-content: center; align-items: center; padding: 20px; min-height: 100vh; background-size: cover; background-position: center; }
+        .container { background-color: #f19429; border: 1px solid #f19f07; border-radius: 30px; padding: 25px; width: 100%; max-width: 900px; }
+        
+       
+        .container#loginBox { 
+            max-width: 450px; 
+            background-image: url('c:\Users\HP\Desktop\2f3a7335-df25-4d2e-80aa-9026139ddd79.jpg');
+            background-position: center; 
+            border: 2px solid #f19f07;
+        }
 
-        .container { background-color: #f19429; border: 1px solid #f19f07; border-radius: 30px; padding: 25px; width: 100%; max-width: 900px; }
-        
-        .container#loginBox { 
-            max-width: 450px; 
-            border: 2px solid #f19f07;
-        }
-
-        .container.dashboard { max-width: 900px; display: none; }
-        .logo { font-size: 22px; font-weight: 700; color: #f0f6fc; text-align: center; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
-        .subtitle { font-size: 13px; color: #8b949e; text-align: center; margin: 6px 0 20px 0; }
-        .form-group { margin-bottom: 14px; }
-        .form-group input, .form-group select { width: 100%; padding: 10px 12px; background: #0d1117; border: 1px solid #30363d; border-radius: 6px; color: #c9d1d9; font-size: 14px; outline: none; }
-        .btn-primary { width: 100%; padding: 11px; background: #cc5510; color: #fff; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; margin-top: 5px; }
-        .btn-secondary { background: #21262d; border: 1px solid #575322; margin-top: 8px; }
-        .display-box { background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 20px; text-align: center; margin-bottom: 16px; }
-        .grid { display: grid; grid-template-columns: 360px 1fr; gap: 20px; }
-        .queue-list { background: #b47d5ead; border: 1px solid #5f6623; border-radius: 8px; padding: 16px; min-height: 400px; width: 100%; color: #0d1117; }
-        .queue-item { background: #717c0b; border: 1px solid #5f6623; padding: 10px 12px; border-radius: 6px; margin-bottom: 8px; font-size: 13px; display: flex; justify-content: space-between; color: #fff; }
-        .priority { color: #f0883e; font-weight: bold; font-size: 11px; }
-        .error-msg { color: #ff6b6b; font-size: 13px; margin-top: 12px; text-align: center; display: none; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); }
-        
-        @media (max-width: 800px) { 
-            .grid { grid-template-columns: 1fr; } 
-        }
-    </style>
+        .container.dashboard { max-width: 900px; display: none; }
+        .logo { font-size: 22px; font-weight: 700; color: #f0f6fc; text-align: center; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+        .subtitle { font-size: 13px; color: #8b949e; text-align: center; margin: 6px 0 20px 0; }
+        .form-group { margin-bottom: 14px; }
+        .form-group input, .form-group select { width: 100%; padding: 10px 12px; background: #0d1117; border: 1px solid #30363d; border-radius: 6px; color: #c9d1d9; font-size: 14px; outline: none; }
+        .btn-primary { width: 100%; padding: 11px; background: #cc5510; color: #fff; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; margin-top: 5px; }
+        .btn-secondary { background: #21262d; border: 1px solid #575322; margin-top: 8px; }
+        .display-box { background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 20px; text-align: center; margin-bottom: 16px; }
+        .grid { display: grid; grid-template-columns: 360px 1fr; gap: 20px; }
+        .queue-list { background: #b47d5ead; border: 1px solid #5f6623; border-radius: 8px; padding: 16px; min-height: 400px; width: 100%; color: #0d1117; }
+        .queue-item { background: #717c0b; border: 1px solid #5f6623; padding: 10px 12px; border-radius: 6px; margin-bottom: 8px; font-size: 13px; display: flex; justify-content: space-between; color: #fff; }
+        .priority { color: #f0883e; font-weight: bold; font-size: 11px; }
+        .error-msg { color: #ff6b6b; font-size: 13px; margin-top: 12px; text-align: center; display: none; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); }
+        @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+    </style>
 </head>
-<body>
-    <div class="container" id="loginBox">
-        <div class="logo">JACH'A URU</div>
-        <div style="color: #ffffff; font-family: 'Arial Black', sans-serif; font-size: 26px; text-align: center; margin-top: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">El Gran Día</div>    
-        <form id="authForm" style="margin-top: 20px;">
-            <div class="form-group"><input type="password" id="pass" placeholder="Ingrese la contraseña" required></div>
-            <button type="submit" class="btn-primary">Iniciar Sesión</button>
-        </form>
-        <div class="error-msg" id="errorMsg">Contraseña incorrecta</div>
-    </div>
+<body style="background-image: url('images.jpg');"> 
+    <div class="container" id="loginBox">
+        <div class="logo">JACH'A URU</div>
+        <div style="color: #ffffff; font-family: 'Arial Black', sans-serif; font-size: 26px; text-align: center; margin-top: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">El Gran Día</div>    
+        <form id="authForm" style="margin-top: 20px;">
+            <div class="form-group"><input type="password" id="pass" placeholder="Ingrese la contraseña" required></div>
+            <button type="submit" class="btn-primary">Iniciar Sesión</button>
+        </form>
+        <div class="error-msg" id="errorMsg">Contraseña incorrecta</div>
+    </div>
 
-    <div class="container dashboard" id="dashboardBox">
-        <div class="logo">Panel de Control</div>
-        <div class="subtitle">Inscripción de cupos en la Unidad Educativa Puerto de Rosario</div>
-        <div class="grid">
-            <div>
-                <div class="display-box">
-                    <div style="font-size:11px; color:#8b949e;">TURNO ACTUAL ATENDIENDO</div>
-                    <div id="turnDisplay" style="font-family: Arial, Helvetica, sans-serif; font-size: 40px; font-weight: 900; font-style: italic; color: #f19429;">A-001</div>
-                    <div style="font-size:13px; margin-top:8px; color: #c9d1d9;" id="currentName">Sin fila</div>
-                </div>
-                <div style="background:#0d1117; border:1px solid #30363d; padding:16px; border-radius:8px; margin-bottom:16px;">
-                    <h4 style="font-size:14px; margin-bottom:12px; color: #f0f6fc;">Registrar Estudiante</h4>
-                    <div class="form-group"><input type="text" id="nombre" placeholder="Nombre del estudiante"></div>
-                    <div class="form-group"><input type="text" id="carnet" placeholder="Número de carnet"></div>
-                    <div class="form-group">
-                        <select id="prioridad">
-                            <option value="normal">Fila normal</option>
-                            <option value="prioridad">Prioridad (Adulto mayor, embarazada)</option>
-                        </select>
-                    </div>
-                    <button class="btn-primary" onclick="registrar()">Registrar y dar turno</button>
-                </div>
-                <button class="btn-primary" onclick="nextTurn()">Avanzar al Siguiente Turno →</button>
-                <button class="btn-primary btn-secondary" onclick="logout()">Cerrar Sesión</button>
-            </div>
-            <div class="queue-list" id="queueList"></div>
-        </div>
-    </div>
+    <div class="container dashboard" id="dashboardBox">
+        <div class="logo">Panel de Control</div>
+        <div class="subtitle">Inscripción de cupos en la Unidad Educativa Puerto de Rosario</div>
+        <div class="grid">
+            <div>
+                <div class="display-box">
+                    <div style="font-size:11px; color:#8b949e;">TURNO ACTUAL ATENDIENDO</div>
+                    <div id="turnDisplay" style="font-family: Arial, Helvetica, sans-serif; font-size: 40px; font-weight: 900; font-style: italic; color: #f19429;">A-001</div>
+                    <div style="font-size:13px; margin-top:8px; color: #c9d1d9;" id="currentName">Sin fila</div>
+                </div>
+                <div style="background:#0d1117; border:1px solid #30363d; padding:16px; border-radius:8px; margin-bottom:16px;">
+                    <h4 style="font-size:14px; margin-bottom:12px; color: #f0f6fc;">Registrar Estudiante</h4>
+                    <div class="form-group"><input type="text" id="nombre" placeholder="Nombre del estudiante"></div>
+                    <div class="form-group"><input type="text" id="carnet" placeholder="Número de carnet"></div>
+                    <div class="form-group">
+                        <select id="prioridad">
+                            <option value="normal">Fila normal</option>
+                            <option value="prioridad">Prioridad (Adulto mayor, embarazada)</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary" onclick="registrar()">Registrar y dar turno</button>
+                </div>
+                <button class="btn-primary" onclick="nextTurn()">Avanzar al Siguiente Turno →</button>
+                <button class="btn-primary btn-secondary" onclick="logout()">Cerrar Sesión</button>
+            </div>
+            <div class="queue-list" id="queueList"></div>
+        </div>
+    </div>
 
 <script>
-    const TIEMPO_PROMEDIO_MINUTOS = 3;
-    const PASS_SECRET = "1234";
+    const TIEMPO_PROMEDIO_MINUTOS = 3;
+    const PASS_SECRET = "1234";
 
-    let cola = JSON.parse(localStorage.getItem('cola_JachaUru')) || [];
-    let count = parseInt(localStorage.getItem('count_JachaUru')) || 1;
-    let ultimoTurnoAtendido = localStorage.getItem('ultimoTurnoAtendido_JachaUru') || "A-001";
-    let nombreUltimoAtendido = localStorage.getItem('nombreUltimoAtendido_JachaUru') || "Sin fila";
+    let cola = JSON.parse(localStorage.getItem('cola_JachaUru')) || [];
+    let count = parseInt(localStorage.getItem('count_JachaUru')) || 1;
+    let ultimoTurnoAtendido = localStorage.getItem('ultimoTurnoAtendido_JachaUru') || "A-001";
+    let nombreUltimoAtendido = localStorage.getItem('nombreUltimoAtendido_JachaUru') || "Sin fila";
 
-    document.getElementById('turnDisplay').innerText = ultimoTurnoAtendido;
-    document.getElementById('currentName').innerText = nombreUltimoAtendido;
+    document.getElementById('turnDisplay').innerText = ultimoTurnoAtendido;
+    document.getElementById('currentName').innerText = nombreUltimoAtendido;
 
-    document.getElementById('authForm').addEventListener('submit', function(e){
-        e.preventDefault();
-        if(document.getElementById('pass').value === PASS_SECRET){
-            document.getElementById('loginBox').style.display='none';
-            document.getElementById('dashboardBox').style.display='block';
-            actualizarVista();
-        } else { 
-            document.getElementById('errorMsg').style.display='block'; 
-        }
-    });
+    document.getElementById('authForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        if(document.getElementById('pass').value === PASS_SECRET){
+            document.getElementById('loginBox').style.display='none';
+            document.getElementById('dashboardBox').style.display='block';
+            actualizarVista();
+        } else { 
+            document.getElementById('errorMsg').style.display='block'; 
+        }
+    });
 
-    function registrar(){
-        const nombre = document.getElementById('nombre').value.trim();
-        const carnet = document.getElementById('carnet').value.trim();
-        const prioridad = document.getElementById('prioridad').value;
+    function registrar(){
+        const nombre = document.getElementById('nombre').value.trim();
+        const carnet = document.getElementById('carnet').value.trim();
+        const prioridad = document.getElementById('prioridad').value;
 
-        if(!nombre || !carnet){ alert('Debe llenar nombre y carnet'); return; }
-        if(cola.some(p => p.carnet === carnet)){ alert('Este carnet ya está registrado'); return; }
+        if(!nombre || !carnet){ alert('Debe llenar nombre y carnet'); return; }
+        if(cola.some(p => p.carnet === carnet)){ alert('Este carnet ya está registrado'); return; }
 
-        count++; 
-        const turno = `A-${String(count).padStart(3,'0')}`;
-        const nuevo = { turno, nombre, carnet, prioridad };
+        count++; 
+        const turno = `A-${String(count).padStart(3,'0')}`;
+        const nuevo = { turno, nombre, carnet, prioridad };
 
-        if(prioridad === 'prioridad') {
-            cola.unshift(nuevo);
-        } else { 
-            cola.push(nuevo); 
-        }
+        if(prioridad === 'prioridad') {
+            cola.unshift(nuevo);
+        } else { 
+            cola.push(nuevo); 
+        }
 
-        guardar(); 
-        actualizarVista();
+        guardar(); 
+        actualizarVista();
 
-        document.getElementById('nombre').value = ''; 
-        document.getElementById('carnet').value = '';
-    }
+        document.getElementById('nombre').value = ''; 
+        document.getElementById('carnet').value = '';
+    }
 
-    function nextTurn(){
-        if(cola.length === 0){ alert('No hay personas en espera'); return; }
-        
-        const persona = cola.shift(); 
-        ultimoTurnoAtendido = persona.turno;
-        nombreUltimoAtendido = `Atendiendo a: ${persona.nombre}`;
-        
-        guardar();
+    function nextTurn(){
+        if(cola.length === 0){ alert('No hay personas en espera'); return; }
+        
+        const persona = cola.shift(); 
+        ultimoTurnoAtendido = persona.turno;
+        nombreUltimoAtendido = `Atendiendo a: ${persona.nombre}`;
+        
+        guardar();
 
-        document.getElementById('turnDisplay').innerText = ultimoTurnoAtendido;
-        document.getElementById('currentName').innerText = nombreUltimoAtendido;
-        actualizarVista();
-    }
+        document.getElementById('turnDisplay').innerText = ultimoTurnoAtendido;
+        document.getElementById('currentName').innerText = nombreUltimoAtendido;
+        actualizarVista();
+    }
 
-    function actualizarVista(){
-        const lista = document.getElementById('queueList');
-        lista.innerHTML = `<h4 style="font-size:13px; margin-bottom:12px; color: #fff;">Fila en espera (${cola.length})</h4>`;
-        
-        cola.forEach((p, index) => {
-            const minutosEstimados = (index + 1) * TIEMPO_PROMEDIO_MINUTOS;
-            
-            lista.innerHTML += `
-                <div class="queue-item" style="display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        <b>${p.turno}</b> - ${p.nombre} 
-                        ${p.prioridad === 'prioridad' ? '<span class="priority">[PRIORIDAD]</span>' : ''}
-                        <div style="font-size: 11px; color: #e0e0e0; margin-top: 2px;">
-                            ⏱️ Tiempo estimado: ~${minutosEstimados} min
-                        </div>
-                    </div>
-                    <div>${p.carnet}</div>
-                </div>`;
-        });
-    }
+    function actualizarVista(){
+        const lista = document.getElementById('queueList');
+        lista.innerHTML = `<h4 style="font-size:13px; margin-bottom:12px; color: #fff;">Fila en espera (${cola.length})</h4>`;
+        
+        cola.forEach((p, index) => {
+            const minutosEstimados = (index + 1) * TIEMPO_PROMEDIO_MINUTOS;
+            
+            lista.innerHTML += `
+                <div class="queue-item" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <b>${p.turno}</b> - ${p.nombre} 
+                        ${p.prioridad === 'prioridad' ? '<span class="priority">[PRIORIDAD]</span>' : ''}
+                        <div style="font-size: 11px; color: #e0e0e0; margin-top: 2px;">
+                            ⏱️ Tiempo estimado: ~${minutosEstimados} min
+                        </div>
+                    </div>
+                    <div>${p.carnet}</div>
+                </div>`;
+        });
+    }
 
-    function guardar(){
-        localStorage.setItem('cola_JachaUru', JSON.stringify(cola));
-        localStorage.setItem('count_JachaUru', count);
-        localStorage.setItem('ultimoTurnoAtendido_JachaUru', ultimoTurnoAtendido);
-        localStorage.setItem('nombreUltimoAtendido_JachaUru', nombreUltimoAtendido);
-    }
+    function guardar(){
+        localStorage.setItem('cola_JachaUru', JSON.stringify(cola));
+        localStorage.setItem('count_JachaUru', count);
+        localStorage.setItem('ultimoTurnoAtendido_JachaUru', ultimoTurnoAtendido);
+        localStorage.setItem('nombreUltimoAtendido_JachaUru', nombreUltimoAtendido);
+    }
 
-    function logout(){
-        document.getElementById('dashboardBox').style.display = 'none'; 
-        document.getElementById('loginBox').style.display = 'block';
-        document.getElementById('pass').value = '';
-    }
+    function logout(){
+        document.getElementById('dashboardBox').style.display = 'none'; 
+        document.getElementById('loginBox').style.display = 'block';
+        document.getElementById('pass').value = '';
+    }
 
-    window.addEventListener('storage', function(e) {
-        if (e.key === 'cola_JachaUru' || e.key === 'ultimoTurnoAtendido_JachaUru' || e.key === 'nombreUltimoAtendido_JachaUru') {
-            cola = JSON.parse(localStorage.getItem('cola_JachaUru')) || [];
-            let turnoActual = localStorage.getItem('ultimoTurnoAtendido_JachaUru') || "A-001";
-            let nombreActual = localStorage.getItem('nombreUltimoAtendido_JachaUru') || "Sin fila";
-            
-            document.getElementById('turnDisplay').innerText = turnoActual;
-            document.getElementById('currentName').innerText = nombreActual;
-            actualizarVista();
-        }
-    });
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'cola_JachaUru' || e.key === 'ultimoTurnoAtendido_JachaUru' || e.key === 'nombreUltimoAtendido_JachaUru') {
+            cola = JSON.parse(localStorage.getItem('cola_JachaUru')) || [];
+            let turnoActual = localStorage.getItem('ultimoTurnoAtendido_JachaUru') || "A-001";
+            let nombreActual = localStorage.getItem('nombreUltimoAtendido_JachaUru') || "Sin fila";
+            
+            document.getElementById('turnDisplay').innerText = turnoActual;
+            document.getElementById('currentName').innerText = nombreActual;
+            actualizarVista();
+        }
+    });
 </script>
 </body>
 </html>
